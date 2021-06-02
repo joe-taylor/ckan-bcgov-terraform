@@ -2,7 +2,7 @@
 
 This repo exists to help new developers set up a local development instance of the BC Data Catalogue. The BC Data Catalogue is composed of a stock install of CKAN 2.7.5 plus custom extensions and supporting apps (e.g. a UI frontend).  We assume you are working on the catalogue but with some tweaks this could work for any version of CKAN.
 
-## What does this do?
+## What is this automating?
 
 Assuming your system is configured with the [initial requirements](#requirements), this terraform configuration will do the following:
 
