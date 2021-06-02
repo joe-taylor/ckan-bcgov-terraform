@@ -20,7 +20,7 @@ Because this sets CKAN up to be run directly on your local machine (not containe
 
 ## Requirements
 
-The [usage procedure](#usage) assumes you have preinstalled the following. Pay special attention to the version numbers as they are important for legacy reasons.  It will not work, for example, if you use virtualenv 20.x instead of 16.x. For more of an imperative how-to, an example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
+The [usage procedure](#usage) assumes you have preinstalled the following. Pay special attention to the version numbers as they are important for legacy reasons.  It will not work, for example, if you use virtualenv 20.x instead of 16.x. For more of an imperative how-to, an example sequence of actions/commands to install these in OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
 
 - python 2.7.x
 	- pip
