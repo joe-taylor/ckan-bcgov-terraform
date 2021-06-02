@@ -1,21 +1,20 @@
 # CKAN Terraform
-The purpose of this repo is to install a version of CKAN for development, an assumption is made
-that you are working on the catalogue but with some tweaks it could work for any version of ckan.
+This repo exists to automatically set up a local instance of the BC Data Catalogue, which at the time of writing is a combination of stock CKAN 2.7.5 and various custom extensions.  An assumption is made that you are working on the catalogue but with some tweaks it could work for any version of CKAN.
 
 ## What does this do?
 
-If your system meets the [requirements](#requirements) and run `terraform init && terraform apply -parallelism=1`, this does the following:
+Assuming your system meets the [requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will accomplish the following:
 
- 1) Starts 3 docker containers.
+ 1) 3 docker containers are created and running.
  	- solr
  	- redis
  	- postgres
- 2) Restores a database backup from `./db/ckan.dump` into aforementioned postgres container.
- 3) Creates and activates a python2 virtual environment in `./src/venv`.
- 4) Downloads CKAN (2.7.5) and a number of ckan extensions and tools from github (optionally from a personal fork). Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
- 5) Uses pip to install these various python packages into the virtual environment.
+ 2) A database backup from `./db/ckan.dump` is restored into the aforementioned postgres container.
+ 3) A python2 virtual environment is available and activated in `./src/venv`.
+ 4) CKAN 2.7.5 and a number of ckan extensions and tools are cloned from github (optionally from a personal fork). Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
+ 5) These various python packages have been installed into the virtual environment using pip.
 
-CKAN runs directly on your local machine and thus uses your local install of python. You'll need to configure it per requirements yourself. CKAN will not be started automatically; see instructions below for how to do that.
+CKAN runs directly on your local machine and thus uses your local install of python and pip. As such, you'll need to configure it to match the requirements yourself. CKAN is not started automatically; see instructions below for how to do that.
 
 
 ## Requirements
@@ -34,16 +33,16 @@ This procedure assumes you have preinstalled the following. Pay special attentio
 
 ### Example setup instructions for OS X Big Sur
 
-Use the preinstalled version of python2, [install homebrew](https://brew.sh/), and then run the following commands from terminal. Together these install pip, virtualenv, openssl, wget, git, and libmagic.
+Let's assume you are starting from a totally fresh install of OS X. Python 2.7 is already installed. To install the rest, start by [installing homebrew](https://brew.sh/), and then run the following commands from terminal. Together these will install pip, virtualenv, openssl, wget, git, and libmagic.
 
     python2 -m ensurepip
     pip2 install virtualenv==16.0.0
     brew install openssl wget git libmagic
 
-Only terraform and docker remain. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop) if you don't have it already.
+Following the above, only terraform and docker remain to be installed. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
 
-## Steps to install
+## Usage
 
 1) Copy terraform.tfvars.example to terraform.tfvars.
 2) Modify the contents to match your needs.
@@ -78,7 +77,7 @@ Listed in order of there effectiveness (higher numbers are better)
 2) Run `terraform apply -parallelism=1` this limits parallelism and solves the problem but takes longer to install the non repos
 3) Run `terraform apply` after it finishes nuke the .*.tf files in {installPath} and then run `terraform apply -parallelism=1`
 
-I haven't found a good solution to this via code, that doesn't mean that one doesn't exist
+I haven't found a good solution to this via code, but that doesn't mean that one doesn't exist.
 
 ## Solr
 To index the solr database run `paster --plugin=ckan search-index rebuild -c {installPath}/conf/ckan.ini`
@@ -118,5 +117,6 @@ Make sure that they are global read/writable
 
 - Use terraform's loop feature to download repos from a list
 - Remove the dependency on a database dump file
+- find a solution to the parallelism conundrum
 
 Copyright 2019, Province of British Columbia.
