@@ -1,6 +1,6 @@
 # CKAN Terraform
 
-This repo exists to help new developers set up a local development instance of the BC Data Catalogue. The BC Data Catalogue is composed of a stock install of CKAN 2.7.5 plus custom extensions and supporting apps (e.g. a UI frontend).
+This repo exists to help new developers set up a local development instance of the BC Data Catalogue. The BC Data Catalogue is composed of a stock install of CKAN 2.7.5 plus custom extensions and supporting apps (e.g. a Vue-based UI frontend).
 
 ## What will this automate for me?
 
