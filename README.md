@@ -4,7 +4,7 @@ This repo exists to help new developers set up a local development instance of t
 
 ## What is this automating?
 
-Assuming your system is configured with the [initial requirements](#requirements), this terraform configuration will do the following:
+Assuming your system is configured with the [initial requirements](#requirements), following the usage instructions for this terraform configuration will do the following:
 
  1) Start 3 docker containers
  	- solr
