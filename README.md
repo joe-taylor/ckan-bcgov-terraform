@@ -15,7 +15,7 @@ Assuming your system is configured with the [initial requirements](#requirements
  4) Clone CKAN 2.7.5 and a number of CKAN extensions and associated apps from GitHub, optionally from a personal fork. Each repository is cloned into `./src` and checked out at whatever branch is specified in the config file.
  5) Install this assortment of python packages into the virtual environment using pip.
 
-It sets CKAN up to be run directly on your local machine (not containerized) and thus it uses your local install of python and pip. As such, you'll need to configure your environment to adhere to the [basic requirements](#requirements) yourself. Although the solr, redis, and postgres containers will all be started automatically, CKAN itself will not; see [running](#running) section for more.
+It sets CKAN up to be run directly on your local machine (not containerized) and thus it uses your local install of python and pip. As such, you'll need to configure your environment to adhere to the [basic requirements](#requirements) yourself. Although the solr, redis, and postgres containers will all be started automatically, CKAN itself will not; see [Running](#running) for more.
 
 
 ## Requirements
