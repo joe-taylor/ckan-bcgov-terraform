@@ -3,7 +3,7 @@ This repo exists to automatically set up a local instance of the BC Data Catalog
 
 ## What does this do?
 
-Assuming your system meets the [requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will achieve the following:
+Assuming your system is configured with the [initial requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will achieve the following:
 
  1) 3 docker containers are running.
  	- solr
