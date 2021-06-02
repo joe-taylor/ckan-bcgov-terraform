@@ -1,25 +1,26 @@
 # CKAN Terraform
-This repo exists to automatically set up a local instance of the BC Data Catalogue, which at the time of writing is a combination of stock CKAN 2.7.5 and various custom extensions.  An assumption is made that you are working on the catalogue but with some tweaks it could work for any version of CKAN.
+
+This repo exists to assist with the setup of a local development instance of the BC Data Catalogue, which consists of CKAN 2.7.5 and various custom extensions and supporting apps (e.g. a UI frontend).  We assume you are working on the catalogue but with some tweaks this could work for any version of CKAN.
 
 ## What does this do?
 
-Assuming your system is configured with the [initial requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will achieve the following:
+Assuming your system is configured with the [initial requirements](#requirements), this terraform configuration will do the following:
 
- 1) 3 docker containers are running.
+ 1) Start 3 docker containers
  	- solr
  	- redis
  	- postgres
- 2) A database backup from `./db/ckan.dump` is restored into the aforementioned postgres container.
- 3) A python2 virtual environment is available and activated in `./src/venv`.
- 4) CKAN 2.7.5 and a number of CKAN extensions and tools are cloned from github, optionally from a personal fork. Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
- 5) These various python packages have been installed into the virtual environment using pip.
+ 2) Restore a backup from `./db/ckan.dump` into the aforementioned postgres container.
+ 3) Create a python2 virtual environment in `./src/venv`.
+ 4) Clone CKAN 2.7.5 and a number of CKAN extensions and associated apps from GitHub, optionally from a personal fork. Each repository is cloned into `./src` and checked out at whatever branch is specified in the config file.
+ 5) Install this assortment of python packages into the virtual environment using pip.
 
-CKAN runs directly on your local machine and thus uses your local install of python and pip. As such, you'll need to configure it to match the requirements yourself. CKAN is not started automatically; see instructions below for how to do that.
+CKAN runs directly on your local machine and thus uses your local install of python and pip. As such, you'll need to configure it to match the requirements yourself. CKAN will not be started automatically; see instructions below for more.
 
 
 ## Requirements
 
-This procedure assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
+The usage procedure assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
 
 - python 2.7.x
 	- pip
@@ -31,7 +32,7 @@ This procedure assumes you have preinstalled the following. Pay special attentio
 - libmagic c library
 - docker
 
-### Example setup instructions for OS X Big Sur
+## Example setup for OS X Big Sur
 
 Let's assume you are starting from a totally fresh install of OS X. Python 2.7 is already installed. To install the rest, start by [installing homebrew](https://brew.sh/), and then run the following commands from terminal. Together these will install pip, virtualenv, openssl, wget, git, and libmagic.
 
@@ -39,7 +40,7 @@ Let's assume you are starting from a totally fresh install of OS X. Python 2.7 i
     pip2 install virtualenv==16.0.0
     brew install openssl wget git libmagic
 
-After doing the above, only terraform and docker remain to be installed. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
+After doing the above, only terraform and docker remain to be installed before you can proceed with [usage](#usage). We recommend manually downloading the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and dropping it in the `PATH`-accessible location of your choosing. Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
 
 ## Usage
@@ -54,10 +55,11 @@ After doing the above, only terraform and docker remain to be installed. Manuall
 terraform do it's job.
 
 ## Notes about TFVars
+
 - Install path is relative to the root of this directory (the directory of this README file)
 
 ## Manual steps
-Some files are intentionally omitted from this install process as they are confidential. So follow the steps below
+
 1) source ${path.root}/${local.installPath}/venv/bin/activate;
 2) Provide the bcdc_licenses.json file in {installPath}/ckanext-bcgov/ckanext/bcgov/scripts/data/bcdc_licenses.json
 3) Then run solr indexing, (See #Solr)
