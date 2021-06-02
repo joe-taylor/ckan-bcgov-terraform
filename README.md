@@ -20,7 +20,7 @@ CKAN runs directly on your local machine and thus uses your local install of pyt
 
 ## Requirements
 
-The usage procedure assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
+The [usage procedure](#usage) assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
 
 - python 2.7.x
 	- pip
