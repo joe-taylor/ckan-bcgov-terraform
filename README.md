@@ -3,7 +3,7 @@ This repo exists to automatically set up a local instance of the BC Data Catalog
 
 ## What does this do?
 
-Assuming your system meets the [requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will accomplish the following:
+Assuming your system meets the [requirements](#requirements), running `terraform init && terraform apply -parallelism=1` will achieve the following:
 
  1) 3 docker containers are running.
  	- solr
@@ -11,7 +11,7 @@ Assuming your system meets the [requirements](#requirements), running `terraform
  	- postgres
  2) A database backup from `./db/ckan.dump` is restored into the aforementioned postgres container.
  3) A python2 virtual environment is available and activated in `./src/venv`.
- 4) CKAN 2.7.5 and a number of ckan extensions and tools are cloned from github, optionally from a personal fork. Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
+ 4) CKAN 2.7.5 and a number of CKAN extensions and tools are cloned from github, optionally from a personal fork. Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
  5) These various python packages have been installed into the virtual environment using pip.
 
 CKAN runs directly on your local machine and thus uses your local install of python and pip. As such, you'll need to configure it to match the requirements yourself. CKAN is not started automatically; see instructions below for how to do that.
