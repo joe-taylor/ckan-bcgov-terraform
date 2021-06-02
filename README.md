@@ -1,26 +1,58 @@
 # CKAN Terraform
 The purpose of this repo is to install a version of CKAN for development, an assumption is made
 that you are working on the catalogue but with some tweaks it could work for any version of ckan.
-(Once terraform 12 comes out the repo could(and should) be changed to a list / for loop)
+
+## What does this do?
+
+If your system meets the [requirements](#requirements) and run `terraform init && terraform apply -parallelism=1`, this does the following:
+
+ 1) Starts 3 docker containers.
+ 	- solr
+ 	- redis
+ 	- postgres
+ 2) Restores a database backup from `./db/ckan.dump` into aforementioned postgres container.
+ 3) Creates and activates a python2 virtual environment in `./src/venv`.
+ 4) Downloads CKAN (2.7.5) and a number of ckan extensions and tools from github (optionally from a personal fork). Each repository is cloned into `./src` and checked out at whatever branch is specified in the config (`terraform.tfvars`).
+ 5) Uses pip to install these various python packages into the virtual environment.
+
+CKAN runs directly on your local machine and thus uses your local install of python. You'll need to configure it per requirements yourself. CKAN will not be started automatically; see instructions below for how to do that.
+
 
 ## Requirements
-This procedure does not make any assumptions about your OS, and therefore you must have installed
-- pip
-- python
-- openssl (Mac - Note: You may also have to copy files over from Cellar [brew install] to /usr/local/lib)
-- terraform (https://www.terraform.io/downloads.html) (v 0.11.7)
+
+This procedure assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
+
+- python 2.7.x
+	- pip
+	- virtualenv 16.x
+- openssl
+- terraform v0.11.7. A binary is available for download in the [terraform releases archive](https://www.terraform.io/downloads.html)
 - wget
-- git cli is logged in with automatic access to new repos on github/gogs
-- libmagic c library is installed (`brew install libmagic` on Mac)
+- git
+- libmagic c library
+- docker
+
+### Example setup instructions for OS X Big Sur
+
+Use the preinstalled version of python2, [install homebrew](https://brew.sh/), and then run the following commands from terminal. Together these install pip, virtualenv, openssl, wget, git, and libmagic.
+
+    python2 -m ensurepip
+    pip2 install virtualenv==16.0.0
+    brew install openssl wget git libmagic
+
+Only terraform and docker remain. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop) if you don't have it already.
+
 
 ## Steps to install
+
 1) Copy terraform.tfvars.example to terraform.tfvars.
-2) (OPTIONAL) add a db dump file to ./db called ckan.dump and it will be imported automatically
-3) Modify the contents  to match your needs
-4) Run `terraform init` to initialize all the modules from remote
-5) (OPTIONAL) Run `terraform plan` to see what the command intends to do
-6) Run `terraform apply` and you'll see the same output as step 4 above respond yes and let
-terraform do it's job
+2) Modify the contents to match your needs.
+3) add a db dump file to `./db` called `ckan.dump`.
+4) Run `terraform -version` to ensure you're running version 0.11.7, as specified above.
+5) Run `terraform init` to initialize all the modules from remote.
+6) (OPTIONAL) Run `terraform plan` to see what the command intends to do.
+7) Run `terraform apply` and you'll see the same output as step 6 above. Respond yes and let
+terraform do it's job.
 
 ## Notes about TFVars
 - Install path is relative to the root of this directory (the directory of this README file)
@@ -28,15 +60,10 @@ terraform do it's job
 ## Manual steps
 Some files are intentionally omitted from this install process as they are confidential. So follow the steps below
 1) source ${path.root}/${local.installPath}/venv/bin/activate;
-2) pip install ckanext-pdfview==0.0.5
-3) pip install sqlalchemy==0.9
-4) pip install genshi==0.7.1
-5) pip install flask_debugtoolbar==0.10.1
-6) Provide the bcdc_licenses.json file in {installPath}/ckanext-bcgov/ckanext/bcgov/scripts/data/bcdc_licenses.json
-7) Then run solr indexing, (See #Solr)
-8) If you do not want to be on the master branches for a particular Repo you must check it on and
+2) Provide the bcdc_licenses.json file in {installPath}/ckanext-bcgov/ckanext/bcgov/scripts/data/bcdc_licenses.json
+3) Then run solr indexing, (See #Solr)
+4) If you do not want to be on the master branches for a particular repo you must check it out and
 re-run the pip/python install.
-
 
 ## Running
 1) Activate the venv `source {installPath}/venv/bin/activate` (Note you should now be able to run paster commands
@@ -86,5 +113,10 @@ In the case above `.ckanext-ga-report.tf` and retry the terraform apply (note it
 
 If the postgres container starts and shutdown immediately the permissions on your db folder are probably incorrect.
 Make sure that they are global read/writable
+
+## Future enhancements
+
+- Use terraform's loop feature to download repos from a list
+- Remove the dependency on a database dump file
 
 Copyright 2019, Province of British Columbia.
