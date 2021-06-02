@@ -39,7 +39,7 @@ Let's assume you are starting from a totally fresh install of OS X. Python 2.7 i
     pip2 install virtualenv==16.0.0
     brew install openssl wget git libmagic
 
-Following the above, only terraform and docker remain to be installed. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
+Following completion of the above, only terraform and docker remain to be installed. Manually download the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and drop it in your `PATH` accessible location of choice (e.g. `/usr/local/bin`). Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
 
 ## Usage
