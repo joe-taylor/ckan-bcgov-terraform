@@ -20,7 +20,7 @@ CKAN runs directly on your local machine and thus uses your local install of pyt
 
 ## Requirements
 
-The [usage procedure](#usage) assumes you have preinstalled the following. Pay special attention to the version numbers as they are important. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
+The [usage procedure](#usage) assumes you have preinstalled the following. Pay special attention to the version numbers as they are important for legacy reasons. An example sequence of actions/commands for OS X is [provided below](#example-setup-instructions-for-os-x-big-sur).
 
 - python 2.7.x
 	- pip
@@ -32,15 +32,15 @@ The [usage procedure](#usage) assumes you have preinstalled the following. Pay s
 - libmagic c library
 - docker
 
-## Example setup for OS X Big Sur
+## Example of how to meet the requirements on OS X Big Sur
 
-Let's assume you are starting from a totally fresh install of OS X. Python 2.7 is already installed. To install the rest, start by [installing homebrew](https://brew.sh/), and then run the following commands from terminal. Together these will install pip, virtualenv, openssl, wget, git, and libmagic.
+Let's assume you are starting from a totally fresh install of OS X. Python 2.7 is already installed. To install the rest, first [install homebrew](https://brew.sh/), and then run the following commands from terminal. Together these will install pip, virtualenv, openssl, wget, git, and libmagic.
 
     python2 -m ensurepip
     pip2 install virtualenv==16.0.0
     brew install openssl wget git libmagic
 
-After doing the above, only terraform and docker remain to be installed before you can proceed with [usage](#usage). We recommend manually downloading the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and dropping it in the `PATH`-accessible location of your choosing. Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
+After doing the above, only terraform and docker need to be set up before you can proceed with [usage](#usage). We recommend manually downloading the 0.11.7 terraform binary from [terraform's archives](https://www.terraform.io/downloads.html) and dropping it in the `PATH`-accessible location of your choosing. You'll have to right mouse click the binary, click "open", and proceed past the security prompt before you can use it from the command line. Next, install [Docker Desktop](https://www.docker.com/products/docker-desktop) using the installer.
 
 
 ## Usage
